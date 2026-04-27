@@ -3,101 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Multiplayer - Online & Offline</title>
+    <title>♔ Modern Chess - Play Online & Offline</title>
     <link rel="stylesheet" href="chess.css">
 </head>
 <body>
+    <div class="background-animation"></div>
+    
     <div class="game-container">
-        <h1>♔ Chess Multiplayer ♚</h1>
-        
+        <!-- Header -->
+        <header class="game-header">
+            <div class="header-content">
+                <h1 class="game-title">♔ CHESS ♚</h1>
+                <p class="game-subtitle">Modern & Interactive Chess Game</p>
+            </div>
+        </header>
+
         <!-- Mode Selection -->
         <div id="mode-selection" class="mode-selection">
-            <h2>Select Game Mode</h2>
+            <h2>Choose Your Game</h2>
             <div class="mode-buttons">
-                <button id="offline-btn" class="mode-btn">♟ Offline (2 Players)</button>
-                <button id="online-btn" class="mode-btn">🌐 Online Multiplayer</button>
+                <button id="offline-btn" class="mode-btn">
+                    <span class="mode-icon">🎮</span>
+                    <span class="mode-text">
+                        <strong>Offline</strong>
+                        <small>Play with a friend</small>
+                    </span>
+                </button>
+                <button id="online-btn" class="mode-btn">
+                    <span class="mode-icon">🌐</span>
+                    <span class="mode-text">
+                        <strong>Versus AI</strong>
+                        <small>Challenge the computer</small>
+                    </span>
+                </button>
             </div>
         </div>
 
-        <!-- Online Connection -->
-        <div id="online-setup" class="online-setup hidden">
-            <h2>Online Multiplayer</h2>
-            <div class="connection-options">
-                <div class="create-room">
-                    <h3>Create Room</h3>
-                    <input type="text" id="room-name" placeholder="Enter room name">
-                    <input type="text" id="player-name" placeholder="Your name">
-                    <button id="create-room-btn" class="action-btn">Create Room</button>
-                </div>
-                <div class="join-room">
-                    <h3>Join Room</h3>
-                    <input type="text" id="join-room-name" placeholder="Room name">
-                    <input type="text" id="join-player-name" placeholder="Your name">
-                    <button id="join-room-btn" class="action-btn">Join Room</button>
-                </div>
+        <!-- Offline Game (Main Content) -->
+        <div id="offline-game" class="game-board-wrapper hidden">
+            <div class="game-header-compact">
+                <button id="back-btn" class="back-btn-compact">← Back</button>
+                <h2>Chess Game</h2>
+                <div class="header-spacer"></div>
             </div>
-            <div id="connection-status" class="connection-status"></div>
-            <button id="back-to-mode" class="back-btn">← Back to Mode Selection</button>
-        </div>
 
-        <!-- Game Room -->
-        <div id="game-room" class="game-room hidden">
-            <div class="room-info">
-                <span id="room-name-display"></span>
-                <span id="player-color"></span>
-            </div>
-            <div class="game-info">
-                <div id="turn-indicator" class="turn-indicator">White's Turn</div>
-                <div id="game-status" class="game-status"></div>
-            </div>
-            <div class="board-container">
-                <div id="chess-board" class="chess-board"></div>
-            </div>
-            <div class="captured-pieces">
-                <div class="captured white-captured">
-                    <span class="captured-label">White Captured:</span>
-                    <div id="white-captured"></div>
-                </div>
-                <div class="captured black-captured">
-                    <span class="captured-label">Black Captured:</span>
-                    <div id="black-captured"></div>
-                </div>
-            </div>
-            <div class="game-controls">
-                <button id="resign-btn" class="control-btn">Resign</button>
-                <button id="draw-btn" class="control-btn">Offer Draw</button>
-                <button id="new-game-btn" class="control-btn">New Game</button>
-            </div>
-            <div id="game-message" class="game-message"></div>
-            <button id="leave-room-btn" class="back-btn">Leave Room</button>
-        </div>
+            <div class="main-game-container">
+                <!-- Left Sidebar: Captured Pieces & Info -->
+                <aside class="sidebar left-sidebar">
+                    <div class="player-info black-player">
+                        <div class="player-name">Black</div>
+                        <div id="offline-turn-indicator-black" class="turn-badge">Waiting...</div>
+                    </div>
+                    <div class="captured-section">
+                        <h4>Captured Pieces</h4>
+                        <div id="offline-black-captured" class="captured-pieces-list"></div>
+                    </div>
+                </aside>
 
-        <!-- Offline Game -->
-        <div id="offline-game" class="offline-game hidden">
-            <div class="game-info">
-                <div id="offline-turn-indicator" class="turn-indicator">White's Turn</div>
-                <div id="offline-game-status" class="game-status"></div>
-            </div>
-            <div class="board-container">
-                <div id="offline-chess-board" class="chess-board"></div>
-            </div>
-            <div class="captured-pieces">
-                <div class="captured white-captured">
-                    <span class="captured-label">White Captured:</span>
-                    <div id="offline-white-captured"></div>
+                <!-- Center: Chess Board -->
+                <div class="board-section">
+                    <div class="board-wrapper">
+                        <div id="offline-chess-board" class="chess-board"></div>
+                        <div class="board-coordinates">
+                            <div class="rank-labels">
+                                <div class="rank">8</div>
+                                <div class="rank">7</div>
+                                <div class="rank">6</div>
+                                <div class="rank">5</div>
+                                <div class="rank">4</div>
+                                <div class="rank">3</div>
+                                <div class="rank">2</div>
+                                <div class="rank">1</div>
+                            </div>
+                            <div class="file-labels">
+                                <div class="file">a</div>
+                                <div class="file">b</div>
+                                <div class="file">c</div>
+                                <div class="file">d</div>
+                                <div class="file">e</div>
+                                <div class="file">f</div>
+                                <div class="file">g</div>
+                                <div class="file">h</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="board-controls">
+                        <button id="flip-board-btn" class="control-btn-secondary" title="Flip Board">🔄</button>
+                        <button id="undo-btn" class="control-btn-secondary" title="Undo Move">↶</button>
+                    </div>
                 </div>
-                <div class="captured black-captured">
-                    <span class="captured-label">Black Captured:</span>
-                    <div id="offline-black-captured"></div>
+
+                <!-- Right Sidebar: Controls & Status -->
+                <aside class="sidebar right-sidebar">
+                    <div class="player-info white-player">
+                        <div class="player-name">White</div>
+                        <div id="offline-turn-indicator-white" class="turn-badge">Your Turn</div>
+                    </div>
+                    <div class="captured-section">
+                        <h4>Captured Pieces</h4>
+                        <div id="offline-white-captured" class="captured-pieces-list"></div>
+                    </div>
+                    <div class="move-counter">
+                        <div class="counter-item">
+                            <span class="label">Moves:</span>
+                            <span id="move-count" class="value">0</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Game Status & Controls -->
+            <div class="game-status-section">
+                <div class="status-info">
+                    <p id="offline-game-status" class="game-status"></p>
+                </div>
+                <div class="game-controls">
+                    <button id="offline-new-game-btn" class="control-btn primary">New Game</button>
+                    <button id="offline-resign-btn" class="control-btn secondary">Resign</button>
+                    <button id="sound-toggle-btn" class="control-btn-icon" title="Toggle Sound">🔊</button>
                 </div>
             </div>
-            <div class="game-controls">
-                <button id="offline-resign-btn" class="control-btn">Resign</button>
-                <button id="offline-draw-btn" class="control-btn">Offer Draw</button>
-                <button id="offline-new-game-btn" class="control-btn">New Game</button>
-                <button id="undo-btn" class="control-btn">Undo Move</button>
+
+            <!-- Move History -->
+            <div class="move-history-section">
+                <h3>Move History</h3>
+                <div id="move-history" class="move-history-list"></div>
             </div>
-            <div id="offline-game-message" class="game-message"></div>
+        </div>
+    </div>
+
+    <!-- Pawn Promotion Modal -->
+    <div id="promotion-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Promote Pawn</h3>
+            <div class="promotion-buttons">
+                <button class="promotion-btn" data-piece="q">♕ Queen</button>
+                <button class="promotion-btn" data-piece="r">♖ Rook</button>
+                <button class="promotion-btn" data-piece="b">♗ Bishop</button>
+                <button class="promotion-btn" data-piece="n">♘ Knight</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Result Modal -->
+    <div id="game-result-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3 id="result-title">Game Over</h3>
+            <p id="result-message"></p>
+            <button id="result-new-game-btn" class="control-btn primary">Play Again</button>
+            <button id="result-back-btn" class="control-btn secondary">Back to Menu</button>
+        </div>
+    </div>
             <button id="offline-back-btn" class="back-btn">← Back to Mode Selection</button>
         </div>
 
